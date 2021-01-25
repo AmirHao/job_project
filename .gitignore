@@ -1,0 +1,41 @@
+.DS_Store
+
+
+# virtual environment
+venv/*
+# eclipse
+.project
+
+.pydevproject
+.settings/*
+
+# pyCharm
+.idea
+# vscode
+
+.vscode/*
+# test output
+test_output/*
+
+*.pyc
+__pycache__
+.mypy_cache
+db.sqlite3
+
+
+# celerybeat-schedule
+celerybeat-schedule.db
+celerybeat.pid
+# log
+
+log/*
+run/*
+*.log
+# static/*
+nohup.out
+env/*
+.coverageje
+.coverage
+
+1598440365831*.zip
+docker_testcases.sh
