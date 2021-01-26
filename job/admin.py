@@ -21,6 +21,8 @@ from job import models
 from job.models.user_limit import UserLimit
 
 admin.site.register(models.company.Company)
+
+
 # class CompanyAdmin(admin.ModelAdmin):
 #     list_display = ['user', 'name', 'mobile', 'email', 'registration_at', 'employees_num', 'address', 'company_profile'] # 需要展示的字段
 
@@ -29,7 +31,7 @@ admin.site.register(models.company.Company)
 class UserLimitAdmin(admin.ModelAdmin):
     list_display = ('user__name', 'user__role', 'is_enable')
     fields = ('user',)
-    search_fields = ('user__name', 'user__email')
+    search_fields = ('user__name', 'user__email')  # search_fields中只能包括字符类型，删去其中的非字符类型即可
     actions = ['delete', 'update', ]
     list_per_page = 10
     list_filter = ('user__name', 'user__role')
