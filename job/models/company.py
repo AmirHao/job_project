@@ -18,3 +18,9 @@ class Company(BaseModel):
     employees_num = models.PositiveIntegerField(default=0, verbose_name='员工数')
     address = models.CharField(max_length=64, verbose_name='公司地址')
     company_profile = models.CharField(max_length=1024, verbose_name='公司简介', null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '招聘公司'

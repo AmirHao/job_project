@@ -18,3 +18,6 @@ class User(BaseModel, BaseHistoricalRecords):
     password = models.CharField(max_length=128, verbose_name='密码', null=False)
     email = models.EmailField(max_length=128, verbose_name='邮箱', null=True)
     # history = HistoricalRecords(bases=(HistoricalModels,), )
+
+    def __str__(self):
+        return self.name
