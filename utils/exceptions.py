@@ -20,10 +20,10 @@ def custom_exception_handler(exc, context):
     res = exception_handler(exc, context)
 
     # 其他报错信息
-    if res is None:
-        view = context['view']  # 出错的视图
-        error = '服务器内部错误, %s' % exc
-        print('%s: %s' % (view, error))
-        return Response({'detail': error}, status=500)
+    # if res is None:
+    #     view = context['view']  # 出错的视图
+    #     error = '服务器内部错误, %s' % exc
+    #     print('%s: %s' % (view, error))
+    #     return Response({'detail': error}, status=500)
 
     return res

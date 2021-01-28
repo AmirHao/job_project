@@ -1,6 +1,6 @@
+from job.models.history import HistoricalModels
 from job.models.company import Company
 from job.models.company2user import Company2User
-from job.models.history import HistoricalModels
 from job.models.jianli import JianLi
 from job.models.role import Role
 from job.models.user import User
