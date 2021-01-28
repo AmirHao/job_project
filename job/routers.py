@@ -6,6 +6,7 @@ from rest_framework import routers
 
 from job.views.company import CompanyViewSet
 from job.views.company2user import Company2UserViewSet
+from job.views.history import HistoriesViewSet
 from job.views.jianli import JianLiViewSet
 from job.views.job import JobViewSet
 from job.views.job2jianli import Job2JianliViewSet
@@ -24,6 +25,7 @@ router.register(r'jianlis', JianLiViewSet, basename='jianlis')
 router.register(r'jobs', JobViewSet, basename='jobs')
 router.register(r'job2jianlis', Job2JianliViewSet, basename='job2jianlis')
 router.register(r'users', UserView, basename='users')
-router.register(r'testviewset', TestViewSet, basename='testviewset')
-router.register(r'testgenericviewset', TestGenericViewSet, basename='testgenericviewset')
-router.register(r'testmodelviewset', TestModelViewSet, basename='testmodelviewset')
+# router.register(r'testviewset', TestViewSet, basename='testviewset')
+# router.register(r'testgenericviewset', TestGenericViewSet, basename='testgenericviewset')
+# router.register(r'testmodelviewset', TestModelViewSet, basename='testmodelviewset')
+router.register(r'histories', HistoriesViewSet, basename='histories')

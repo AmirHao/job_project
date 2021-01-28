@@ -179,6 +179,6 @@ class HistoricalModels(models.Model):
 
             return is_history
         except:
-            settings.LLS_LOGGING.error(traceback.format_exc())
+            # settings.LLS_LOGGING.error(traceback.format_exc())
             is_history = True
             return is_history

@@ -18,7 +18,7 @@ from pathlib import Path
 
 # Build paths inside the my_p like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-# /Users/hzm/PycharmProjects/my_p
+# /Users/hzm/PycharmProjects/job_project
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
+    'simple_history',
     'job',
     'book',
 ]
