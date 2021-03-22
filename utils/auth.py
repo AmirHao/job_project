@@ -13,9 +13,9 @@ from jwt.exceptions import InvalidKeyError, DecodeError, InvalidTokenError
 jwt_conf = settings.JWT_CONFIG
 
 
-def md5_(str):
+def md5_(_str):
     m = hashlib.md5()
-    m.update(str.encode())
+    m.update(_str.encode())
     return m.hexdigest()
 
 
@@ -59,11 +59,11 @@ def create_payload(uId, exp, **kwargs):
     return dict(uId=uId, exp=exp, **kwargs)
 
 
-def get_token(athorization):
-    if not athorization:
+def get_token(authorization):
+    if not authorization:
         return
-    auth_type = athorization[:7]
-    token = athorization[7:].strip()
+    auth_type = authorization[:7]
+    token = authorization[7:].strip()
     if auth_type.lower() != 'bearer ':
         return
     return token
