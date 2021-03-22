@@ -11,7 +11,7 @@ def hello(request):  # noqa
     return HttpResponse('hi, biu biu biu ~~')
 
 
-class jisuan(View):
+class JiSuan(View):
     def get(self, request):
         a = request.GET.get('a')
         b = request.GET.get('b')
