@@ -16,11 +16,29 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
 
 from job import urls
 
+schema_view = get_schema_view(
+    openapi.Info(
+        title="CMDB API",
+        default_version='v1',
+        description="个人系统API接口文档",
+        terms_of_service="https://www.shuaibo.wang/",
+        contact=openapi.Contact(email="mail@shuaibo.wang"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(),
+    authentication_classes=(),
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api_doc/', schema_view.with_ui('redoc', cache_timeout=0), name="CMDB API"),
     # rest_framework
     path('', include(urls)),
     # path('', include('job.urls')),
