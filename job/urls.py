@@ -12,7 +12,7 @@ from job.views.test_view import TestAPIView, TestGenericView, TestViewSet, TestG
 
 urlpatterns = [
     url('hello', hello),
-    url('jisuan', jisuan.as_view()),
+    url('jisuan', JiSuan.as_view()),
     path('testapiview', TestAPIView.as_view()),
     path('testgenericapiview', TestGenericView.as_view()),
     # path('testviewset', TestViewSet.as_view({'get': 'list', 'post': 'create'})),
