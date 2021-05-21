@@ -29,13 +29,16 @@ admin.site.register(models.company.Company)
 
 @admin.register(UserLimit)
 class UserLimitAdmin(admin.ModelAdmin):
-    list_display = ('user__name', 'user__role', 'is_enable')
-    fields = ('user',)
-    search_fields = ('user__name', 'user__email')  # search_fields中只能包括字符类型，删去其中的非字符类型即可
-    actions = ['delete', 'update', ]
+    list_display = ("user__name", "user__role", "is_enable")
+    fields = ("user",)
+    search_fields = ("user__name", "user__email")  # search_fields中只能包括字符类型，删去其中的非字符类型即可
+    actions = [
+        "delete",
+        "update",
+    ]
     list_per_page = 10
-    list_filter = ('user__name', 'user__role')
-    list_editable = ('is_enable',)
+    list_filter = ("user__name", "user__role")
+    list_editable = ("is_enable",)
 
     def user__name(self, obj):
         return obj.user.name
@@ -43,5 +46,5 @@ class UserLimitAdmin(admin.ModelAdmin):
     def user__role(self, obj):
         return obj.user.role.name
 
-    user__name.short_description = '用户名称'
-    user__role.short_description = '角色名称'
+    user__name.short_description = "用户名称"
+    user__role.short_description = "角色名称"

@@ -10,11 +10,11 @@ from rest_framework.views import exception_handler
 def custom_exception_handler(exc, context):
     # DRF 不会处理的报错
     if isinstance(exc, ZeroDivisionError):
-        return Response({'errmsg': '除数不能为零'}, status=500)
+        return Response({"errmsg": "除数不能为零"}, status=500)
     if isinstance(exc, DatabaseError):
-        return Response({'errmsg': '数据库错误！'}, status=500)
+        return Response({"errmsg": "数据库错误！"}, status=500)
     if isinstance(exc, ValueError):
-        return Response({'errmsg': exc.args}, status=500)
+        return Response({"errmsg": exc.args}, status=500)
 
     # 默认使用 DRF 的异常处理模块
     res = exception_handler(exc, context)

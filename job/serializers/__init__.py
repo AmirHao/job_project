@@ -26,11 +26,13 @@ class BaseModelSerializer(serializers.ModelSerializer):
             #
             # For related fields with `use_pk_only_optimization` we need to
             # resolve the pk value.
-            check_for_none = attribute.pk if isinstance(attribute, PKOnlyObject) else attribute
+            check_for_none = (
+                attribute.pk if isinstance(attribute, PKOnlyObject) else attribute
+            )
             if check_for_none is None:
                 continue
             elif isinstance(field, PrimaryKeyRelatedField):
-                ret[field.field_name + '_id'] = field.to_representation(attribute)
+                ret[field.field_name + "_id"] = field.to_representation(attribute)
             else:
                 ret[field.field_name] = field.to_representation(attribute)
 

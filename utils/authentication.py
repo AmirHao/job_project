@@ -17,26 +17,27 @@ class WrongTokenExcption(exceptions.APIException):
 
 
 class NoCsrfAuthentication(SessionAuthentication):
-
     def enforce_csrf(self, request):
         return
 
 
 class JWTAuthentication(TokenAuthentication, NoCsrfAuthentication):
     def authenticate(self, request):
-        authorization = request.META.get('HTTP_AUTHORIZATION') or request.GET.get('Authorization')
+        authorization = request.META.get("HTTP_AUTHORIZATION") or request.GET.get(
+            "Authorization"
+        )
         # 校验token是否合法
         token = get_token(authorization)
         payload = parse_token(token)
         if not payload:
-            raise WrongTokenExcption('登录超时，请重试')
+            raise WrongTokenExcption("登录超时，请重试")
         # except jwt.ExpiredSignatureError:
         #     raise AuthenticationFailed('过期了')
         # except jwt.DecodeError:
         #     raise AuthenticationFailed('解码错误')
         # except jwt.InvalidTokenError:
         #     raise AuthenticationFailed('不合法的token')
-        user = User.objects.filter(id=payload['uId']).filter()
+        user = User.objects.filter(id=payload["uId"]).filter()
         return user, token
 
     def enforce_csrf(self, request):

@@ -10,4 +10,4 @@ from job.models.job2jianli import Job2Jianli
 class Job2JianliSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job2Jianli
-        fields = '__all__'
+        fields = "__all__"

@@ -23,8 +23,8 @@ class ChoiceClass(IntEnum):
 
     @classmethod
     def get_display(cls, value) -> str:
-        """ 获得对应的中文显示 """
-        return cls.__describe__.get(int(value), '')
+        """获得对应的中文显示"""
+        return cls.__describe__.get(int(value), "")
 
 
 class RoleEnum(ChoiceClass):
@@ -32,11 +32,13 @@ class RoleEnum(ChoiceClass):
     enterprise = 2
     administrator = 3
 
-    __describe__ = OrderedDict((
-        (personal, '个人'),
-        (enterprise, '公司'),
-        (administrator, '管理员'),
-    ))
+    __describe__ = OrderedDict(
+        (
+            (personal, "个人"),
+            (enterprise, "公司"),
+            (administrator, "管理员"),
+        )
+    )
 
     @classmethod
     def default(cls):
@@ -47,10 +49,12 @@ class SexEnum(ChoiceClass):
     males = 1
     females = 2
 
-    __describe__ = OrderedDict((
-        (males, '男'),
-        (females, '女'),
-    ))
+    __describe__ = OrderedDict(
+        (
+            (males, "男"),
+            (females, "女"),
+        )
+    )
 
     @classmethod
     def default(cls):
@@ -63,12 +67,14 @@ class job2jianliEnum(ChoiceClass):
     approved = 3
     rejected = 4
 
-    __describe__ = OrderedDict((
-        (to_view, '待查看'),
-        (viewed, '已查看'),
-        (approved, '通过'),
-        (rejected, '驳回'),
-    ))
+    __describe__ = OrderedDict(
+        (
+            (to_view, "待查看"),
+            (viewed, "已查看"),
+            (approved, "通过"),
+            (rejected, "驳回"),
+        )
+    )
 
     @classmethod
     def default(cls):
@@ -79,10 +85,12 @@ class FindJobStatusEnum(ChoiceClass):
     job = 1
     work_job = 2
 
-    __describe__ = OrderedDict((
-        (job, '积极找工作'),
-        (work_job, '即将离职'),
-    ))
+    __describe__ = OrderedDict(
+        (
+            (job, "积极找工作"),
+            (work_job, "即将离职"),
+        )
+    )
 
     @classmethod
     def default(cls):

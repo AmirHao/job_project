@@ -4,4 +4,6 @@
 # __date__ = 2021-1-18
 from django_redis import get_redis_connection
 
-redis_c = get_redis_connection('default',)
+redis_c = get_redis_connection(
+    "default",
+)

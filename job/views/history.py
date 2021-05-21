@@ -19,26 +19,38 @@ from job.serializers.history import HistoriesSerializer
 class HistoriesViewSet(ViewSet):
     serializer_class = HistoriesSerializer
 
-    @action(methods=['get', ], detail=False, url_path='log', url_name='log')
+    @action(
+        methods=[
+            "get",
+        ],
+        detail=False,
+        url_path="log",
+        url_name="log",
+    )
     def log(self, request):
         serializer = self.serializer_class(data=request.query_params)
         serializer.is_valid(raise_exception=True)
-        model_name = request.query_params['model_name']
+        model_name = request.query_params["model_name"]
         # 获取 model
         try:
-            object_id = request.query_params['object_id']
-            model = apps.get_model(app_label='job', model_name=model_name)
+            object_id = request.query_params["object_id"]
+            model = apps.get_model(app_label="job", model_name=model_name)
             model_object = model.objects.get(id=object_id)
         except:
-            raise ValidationError('请选择正确的内容')
+            raise ValidationError("请选择正确的内容")
 
         result = []
         history_old = None
         # 获取 model 的历史记录
-        limit = int(request.query_params.get('limit', 10))
-        page = int(request.query_params.get('page', 1))
-        query = ~Q(history_change_reason='', ) & ~Q(history_related_key='')
-        histories = model_object.history.filter(query).order_by('-history_id')
+        limit = int(request.query_params.get("limit", 10))
+        page = int(request.query_params.get("page", 1))
+        query = (
+            ~Q(
+                history_change_reason="",
+            )
+            & ~Q(history_related_key="")
+        )
+        histories = model_object.history.filter(query).order_by("-history_id")
         # 使用 django 分页
         paginator = Paginator(histories, limit)
         total = paginator.count
@@ -51,18 +63,18 @@ class HistoriesViewSet(ViewSet):
             histories_page = paginator.page(total_page)
 
         paging = {
-            'page': page,
-            'limit': limit,
-            'total': total,
-            'total_page': total_page,
+            "page": page,
+            "limit": limit,
+            "total": total,
+            "total_page": total_page,
         }
 
         # 开始对比每次的历史记录
         for history in histories_page:
             data = {
-                'history_date': history.history_date,
-                'history_change_reason': history.history_change_reason,
-                'actions': [],
+                "history_date": history.history_date,
+                "history_change_reason": history.history_change_reason,
+                "actions": [],
             }
             try:
                 # 新数据展示
@@ -73,7 +85,7 @@ class HistoriesViewSet(ViewSet):
                     history_old = history.prev_record
                     changes = history.get_history_change(history_old=history_old)
                     if changes:
-                        data['actions'].extend(changes)
+                        data["actions"].extend(changes)
 
                     # 如果是外键
                     # foreign_key_model_dict = {}
@@ -107,4 +119,4 @@ class HistoriesViewSet(ViewSet):
             except:
                 print(traceback.format_exc())
             result.append(data)
-        return Response({'results': result, 'paging': paging})
+        return Response({"results": result, "paging": paging})

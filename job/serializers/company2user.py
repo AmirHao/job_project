@@ -10,4 +10,4 @@ from job.models import Company2User
 class Company2UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company2User
-        fields = '__all__'
+        fields = "__all__"

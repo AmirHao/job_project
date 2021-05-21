@@ -19,21 +19,17 @@ def md5_(_str):
     return m.hexdigest()
 
 
-def create_token(user_id, name, expires=jwt_conf['access_token_expires']):
+def create_token(user_id, name, expires=jwt_conf["access_token_expires"]):
     t = time.time()
-    payload = create_payload(
-        user_id,
-        t + expires,
-        name=name
-    )
+    payload = create_payload(user_id, t + expires, name=name)
     token = jwt.encode(
         payload,
-        jwt_conf['access_token_secret'],
-        algorithm=jwt_conf['jwt_header']['alg'],
-        headers=jwt_conf['jwt_header']
+        jwt_conf["access_token_secret"],
+        algorithm=jwt_conf["jwt_header"]["alg"],
+        headers=jwt_conf["jwt_header"],
     )
     if not isinstance(token, str):
-        token = token.decode('utf8')
+        token = token.decode("utf8")
     return dict(tk=token, expAt=t + expires, uId=user_id)
 
 
@@ -41,10 +37,10 @@ def parse_token(token):
     try:
         payload = jwt.decode(
             token,
-            jwt_conf['access_token_secret'],
+            jwt_conf["access_token_secret"],
             verify=True,
-            algorithms=jwt_conf['jwt_header']['alg'],
-            leeway=jwt_conf['access_token_leeway']
+            algorithms=jwt_conf["jwt_header"]["alg"],
+            leeway=jwt_conf["access_token_leeway"],
         )
     except ExpiredSignatureError:
         return
@@ -64,6 +60,6 @@ def get_token(authorization):
         return
     auth_type = authorization[:7]
     token = authorization[7:].strip()
-    if auth_type.lower() != 'bearer ':
+    if auth_type.lower() != "bearer ":
         return
     return token

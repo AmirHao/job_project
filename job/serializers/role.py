@@ -10,4 +10,4 @@ from job.models import Role
 class RoleSerializer(ModelSerializer):
     class Meta:
         model = Role
-        fields = '__all__'
+        fields = "__all__"

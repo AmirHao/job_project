@@ -17,9 +17,7 @@ class BaseModelViewSet(ModelViewSet):
 
         params = self.request.query_params
         try:
-            data = {
-                k: params[k] for k in params.keys()
-            }
+            data = {k: params[k] for k in params.keys()}
             return data
         except:  # noqa
             return params
@@ -31,27 +29,29 @@ class BaseModelViewSet(ModelViewSet):
         把`view.filter_fields`中的 filter 字段从`request.data`的字段回写到`request.query_params`里面
 
         """
-        fields = getattr(self, 'filter_fields', {})
+        fields = getattr(self, "filter_fields", {})
         for field in fields:
             if self.request.data.get(field):
                 self.request.query_params._mutable = True
                 self.request.query_params[field] = self.request.data[field]
 
-        strtime_range_fields = getattr(self, 'strtime_range_fields', [])
+        strtime_range_fields = getattr(self, "strtime_range_fields", [])
         for field in strtime_range_fields:
-            if self.request.data.get(field['name']):
+            if self.request.data.get(field["name"]):
                 self.request.query_params._mutable = True
-                self.request.query_params[field['name']] = self.request.data[field['name']]
+                self.request.query_params[field["name"]] = self.request.data[
+                    field["name"]
+                ]
 
     def batch_search(self, request, data, *args, **kwargs):
-        limit = data.get('limit')
-        page = data.get('page', 1)
+        limit = data.get("limit")
+        page = data.get("page", 1)
         if not limit:
-            if data.get('batch_search'):
+            if data.get("batch_search"):
                 limit = 1000
             else:
                 limit = 10
         request.query_params._mutable = True
-        request.query_params['limit'] = limit
-        request.query_params['page'] = page
+        request.query_params["limit"] = limit
+        request.query_params["page"] = page
         return self.list(request, *args, **kwargs)

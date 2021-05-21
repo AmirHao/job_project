@@ -10,9 +10,9 @@ class RequestIDMiddleware(MiddlewareMixin):
             返回值是 None 的话，按正常流程继续走，交给下一个中间件处理
             返回值是 HttpResponse 对象，将不执行后续，直接以该中间件为起点，倒序执行中间件，且执行的是视图函数之后执行的方法
         """
-        print('请求进来啦，快来处理 😊 ')
+        print("请求进来啦，快来处理 😊 ")
 
-    def process_view(self, request, view_func, view_args, view_kwargs): # noqa
+    def process_view(self, request, view_func, view_args, view_kwargs):  # noqa
         """
         :param request: HttpRequest 对象
         :param view_func: Django 即将使用的视图函数
@@ -23,7 +23,7 @@ class RequestIDMiddleware(MiddlewareMixin):
             返回值是 HttpResponse 对象，不执行后续，直接以该中间件为起点，倒序执行中间件，且执行的是视图函数之后执行的方法
             返回值是 view_func(request)，不执行后续，提前执行视图函数，然后再倒序执行视图函数之后执行的方法
         """
-        print('找到视图啦，快来看 😬 ')
+        print("找到视图啦，快来看 😬 ")
 
     def process_exception(self, request, exception):  # noqa
         """
@@ -34,7 +34,7 @@ class RequestIDMiddleware(MiddlewareMixin):
             返回值是 None，页面会报 500 状态码错误，视图函数不会执行
             返回值是 HttpResponse 对象，页面不会报错，返回状态码为 200
         """
-        print('好失望啊，出错了 😭 ')
+        print("好失望啊，出错了 😭 ")
         return exception
 
     def process_response(self, request, response):  # noqa
@@ -44,7 +44,7 @@ class RequestIDMiddleware(MiddlewareMixin):
         :param response:
         :return: response
         """
-        print('撤啦撤啦，by ~ ')
+        print("撤啦撤啦，by ~ ")
         return response
 
     def process_template_response(self, request, response):

@@ -8,5 +8,5 @@ from django.conf.urls import url
 from book.views import BookView
 
 urlpatterns = [
-    url(r'books', BookView.as_view()),
+    url(r"books", BookView.as_view()),
 ]

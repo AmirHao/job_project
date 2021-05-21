@@ -10,9 +10,9 @@ from job.models import Company
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = "__all__"
 
     def update(self, instance, validated_data):
         instance.history_save()
-        validated_data['changeReason'] = 'hzm'
+        validated_data["changeReason"] = "hzm"
         return super().update(instance, validated_data)

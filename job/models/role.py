@@ -14,6 +14,6 @@ class Role(BaseModel):
     #     (2, '公司用户'),
     #     (3, '管理员'),
     # ) ['求职者', '招聘者', '管理员']
-    name = models.CharField(max_length=32, verbose_name='角色')
-    status = models.BooleanField(verbose_name='状态', default=True)
-    create_person = models.CharField(max_length=12, verbose_name='创建人', default='')
+    name = models.CharField(max_length=32, verbose_name="角色")
+    status = models.BooleanField(verbose_name="状态", default=True)
+    create_person = models.CharField(max_length=12, verbose_name="创建人", default="")
