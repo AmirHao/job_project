@@ -56,7 +56,7 @@ class LoginSerializer(Serializer):
         if not user:
             raise ValidationError("用户不存在")
         res_data = create_token(user.id, user.name, expires=600)
-        print(res_data)
+        # print(res_data)
         return res_data
 
 
