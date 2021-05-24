@@ -10,7 +10,8 @@ class RequestIDMiddleware(MiddlewareMixin):
             返回值是 None 的话，按正常流程继续走，交给下一个中间件处理
             返回值是 HttpResponse 对象，将不执行后续，直接以该中间件为起点，倒序执行中间件，且执行的是视图函数之后执行的方法
         """
-        print("请求进来啦，快来处理 😊 ")
+        # print("请求进来啦，快来处理 😊 ")
+        pass
 
     def process_view(self, request, view_func, view_args, view_kwargs):  # noqa
         """
@@ -23,7 +24,8 @@ class RequestIDMiddleware(MiddlewareMixin):
             返回值是 HttpResponse 对象，不执行后续，直接以该中间件为起点，倒序执行中间件，且执行的是视图函数之后执行的方法
             返回值是 view_func(request)，不执行后续，提前执行视图函数，然后再倒序执行视图函数之后执行的方法
         """
-        print("找到视图啦，快来看 😬 ")
+        # print("找到视图啦，快来看 😬 ")
+        pass
 
     def process_exception(self, request, exception):  # noqa
         """
@@ -34,7 +36,7 @@ class RequestIDMiddleware(MiddlewareMixin):
             返回值是 None，页面会报 500 状态码错误，视图函数不会执行
             返回值是 HttpResponse 对象，页面不会报错，返回状态码为 200
         """
-        print("好失望啊，出错了 😭 ")
+        # print("好失望啊，出错了 😭 ")
         return exception
 
     def process_response(self, request, response):  # noqa
@@ -44,15 +46,16 @@ class RequestIDMiddleware(MiddlewareMixin):
         :param response:
         :return: response
         """
-        print("撤啦撤啦，by ~ ")
+        # print("撤啦撤啦，by ~ ")
         return response
 
-    def process_template_response(self, request, response):
+    def process_template_response(self, request, response):  # noqa
         """
         在视图函数执行完成后立即执行，它有一个前提条件，视图函数返回的对象有一个render()方法（或者表明该对象是一个TemplateResponse对象或等价方法
         :param request: HttpRequest对象
         :param response: TemplateResponse对象（由视图函数或者中间件产生）
         :return:
         """
-        print("模板函数执行完成啦 👋")
+        # *** 暂时有问题，任何情况下都走这里
+        # print("模板函数执行完成啦 👋")
         return response
