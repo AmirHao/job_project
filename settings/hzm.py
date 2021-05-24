@@ -3,6 +3,7 @@
 # __author__ = hzm
 # __date__ = 2021-1-19
 from settings.base import *     # noqa
+from utils.celery.main import celery_app
 
 ALLOWED_HOSTS = []
 
@@ -47,3 +48,6 @@ CACHES = {
         }
     },
 }
+
+# celery 立即执行
+celery_app.conf.update(CELERY_ALWAYS_EAGER=True)
