@@ -48,4 +48,10 @@ class RequestIDMiddleware(MiddlewareMixin):
         return response
 
     def process_template_response(self, request, response):
-        pass
+        """
+        在视图函数执行完成后立即执行，它有一个前提条件，视图函数返回的对象有一个render()方法（或者表明该对象是一个TemplateResponse对象或等价方法
+        :param request: HttpRequest对象
+        :param response: TemplateResponse对象（由视图函数或者中间件产生）
+        :return:
+        """
+        return response
