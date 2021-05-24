@@ -54,4 +54,5 @@ class RequestIDMiddleware(MiddlewareMixin):
         :param response: TemplateResponse对象（由视图函数或者中间件产生）
         :return:
         """
+        print("模板函数执行完成啦 👋")
         return response
