@@ -1,10 +1,10 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from job.models import Role
 from job.models.user import User
 from job.serializers.user import UserSerializer, LoginSerializer, LogOutSerializer
 from job.views import BaseModelViewSet
+from settings.base import LOGGING_OBJ
 
 
 class UserView(BaseModelViewSet):
@@ -22,6 +22,8 @@ class UserView(BaseModelViewSet):
         serializer_class=LoginSerializer,
     )
     def login(self, request):
+        LOGGING_OBJ.info("这是 info 的日志")
+        raise ValueError('主动报错')
         data = request.data
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)

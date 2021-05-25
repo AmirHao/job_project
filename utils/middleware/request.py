@@ -1,4 +1,18 @@
+import logging
+from uuid import uuid4
+
 from django.utils.deprecation import MiddlewareMixin
+
+from utils.middleware import local
+
+logger = logging.getLogger('django')
+
+
+class RemoteIpFilter(logging.Filter):
+    def filter(self, record):
+        record.remote_ip = getattr(local, "remote_ip", "no remote ip")
+        record.request_id = getattr(local, "request_id", "no request id")
+        return True
 
 
 class RequestIDMiddleware(MiddlewareMixin):
@@ -11,7 +25,15 @@ class RequestIDMiddleware(MiddlewareMixin):
             返回值是 HttpResponse 对象，将不执行后续，直接以该中间件为起点，倒序执行中间件，且执行的是视图函数之后执行的方法
         """
         # print("请求进来啦，快来处理 😊 ")
-        pass
+        local.remote_ip = (
+                request.META.get("HTTP_X_FORWARDED_FOR")
+                or request.META.get("HTTP_X_REAL_IP")
+                or request.META.get("REMOTE_ADDR")
+        )
+        request.META["HTTP_X_REQUEST_ID"] = local.request_id = request.META.get(
+            "HTTP_X_REQUEST_ID", uuid4().hex
+        )
+        logger.info('[request] method: %s, path: %s', request.method, request.get_full_path())
 
     def process_view(self, request, view_func, view_args, view_kwargs):  # noqa
         """
@@ -47,6 +69,12 @@ class RequestIDMiddleware(MiddlewareMixin):
         :return: response
         """
         # print("撤啦撤啦，by ~ ")
+        try:
+            response.content
+        except:  # noqa
+            logger.info('[response] status_code:%s, content: FileResponse' % response.status_code)
+            return response
+        logger.info('[response] status_code:%s, content: ...' % (response.status_code,))
         return response
 
     def process_template_response(self, request, response):  # noqa

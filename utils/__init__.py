@@ -1,3 +1,7 @@
+import threading
+
+local = threading.local()
+
 N = 0
 
 
