@@ -39,3 +39,7 @@ env/*
 
 1598440365831*.zip
 docker_testcases.sh
+
+log_file/*
+*.png
+*.xlsx
