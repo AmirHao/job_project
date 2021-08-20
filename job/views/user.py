@@ -23,7 +23,6 @@ class UserView(BaseModelViewSet):
     )
     def login(self, request):
         LOGGING_OBJ.info("这是 info 的日志")
-        raise ValueError('主动报错')
         data = request.data
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)

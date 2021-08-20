@@ -39,3 +39,5 @@ env/*
 
 1598440365831*.zip
 docker_testcases.sh
+
+utils/*.png
