@@ -41,3 +41,5 @@ env/*
 docker_testcases.sh
 
 utils/*.png
+
+static/*
