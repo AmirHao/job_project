@@ -14,7 +14,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.hzm")
 
 celery_app = Celery("job_p")
 # 加载消息队列的配置
-celery_app.config_from_object("utils.celery.config", namespace="CELERY")
+celery_app.config_from_object("django.conf:settings", namespace="CELERY")
 
 # 从django注册的app中，自动识别任务
 celery_app.autodiscover_tasks()
