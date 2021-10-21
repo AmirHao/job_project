@@ -5,7 +5,7 @@
 from settings.base import *     # noqa
 from utils.celery.main import celery_app
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     'default': {
