@@ -27,3 +27,4 @@ def convert_inages(path):
     print(file_size)
     if file_size > 1024 * 1024 * 2:
         image = Image.open(path)
+
