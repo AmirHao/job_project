@@ -2,7 +2,10 @@
 # -*- coding:utf-8 -*-
 # __author__ = hzm
 # __date__ = 2021/10/20
+import os
+
 import qrcode
+from PIL import Image
 
 
 def creats_qr_code():
@@ -17,3 +20,10 @@ def create_qr_code_2_file():
     # 写入文件
     with open('ignore_data/test1.png', 'wb') as f:
         img.save(f)
+
+
+def convert_inages(path):
+    file_size = os.path.getsize(path)
+    print(file_size)
+    if file_size > 1024 * 1024 * 2:
+        image = Image.open(path)
