@@ -5,7 +5,7 @@ from django.utils.deprecation import MiddlewareMixin
 
 from utils.middleware import local
 
-logger = logging.getLogger('django')
+logger = logging.getLogger("django")
 
 
 class RemoteIpFilter(logging.Filter):
@@ -26,14 +26,16 @@ class RequestIDMiddleware(MiddlewareMixin):
         """
         # print("请求进来啦，快来处理 😊 ")
         local.remote_ip = (
-                request.META.get("HTTP_X_FORWARDED_FOR")
-                or request.META.get("HTTP_X_REAL_IP")
-                or request.META.get("REMOTE_ADDR")
+            request.META.get("HTTP_X_FORWARDED_FOR")
+            or request.META.get("HTTP_X_REAL_IP")
+            or request.META.get("REMOTE_ADDR")
         )
         request.META["HTTP_X_REQUEST_ID"] = local.request_id = request.META.get(
             "HTTP_X_REQUEST_ID", uuid4().hex
         )
-        logger.info('[request] method: %s, path: %s', request.method, request.get_full_path())
+        logger.info(
+            "[request] method: %s, path: %s", request.method, request.get_full_path()
+        )
 
     def process_view(self, request, view_func, view_args, view_kwargs):  # noqa
         """
@@ -72,9 +74,12 @@ class RequestIDMiddleware(MiddlewareMixin):
         try:
             response.content
         except:  # noqa
-            logger.info('[response] status_code:%s, content: FileResponse' % response.status_code)
+            logger.info(
+                "[response] status_code:%s, content: FileResponse"
+                % response.status_code
+            )
             return response
-        logger.info('[response] status_code:%s, content: ...' % (response.status_code,))
+        logger.info("[response] status_code:%s, content: ..." % (response.status_code,))
         return response
 
     def process_template_response(self, request, response):  # noqa
