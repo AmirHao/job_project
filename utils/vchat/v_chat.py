@@ -49,55 +49,44 @@ def resever_info(msg):
 
 @itchat.msg_register(NOTE)  # 监听系统提示
 def note_info(msg):
-    # 监听撤回了一条消息到好友撤回了一条消息
-    if "" in msg["Text"]:
-        # 获取系统消息中的Content结点值
-        content = msg["Content"]
-        # Content值为xml，解析xml
-        doc = minidom.parseString(content)
-        # 取出msgid标签的值
-        result = doc.getElementsByTagName("msgid")
-        # 该msgId就是撤回的消息标识，通过它可以在字典中找到撤回的消息信息
-        msgId = result[0].childNodes[0].nodeValue
-        # 从字典中取出对应消息标识的消息类型
-        msg_type = local_dict[msgId]["info_type"]
-        if msg_type == "Recording":  # 撤回的消息为语音
-            recording_info = local_dict[msgId]["info"]  # 取出消息标识对应的消息内容
-            info_name = local_dict[msgId]["name"]  # 取出消息文件名
-            fromUser = local_dict[msgId]["fromUser"]  # 取出发送者
-            dt = local_dict[msgId]["dt"]  # 取出发送时间
-            recording_info(temp + "/" + info_name)  # 保存语音
-            # 拼接提示消息
-            send_msg = "【发送人:】" + fromUser + "\n" + "发送时间:" + dt + "\n" + "撤回了一条语音"
-            itchat.send(send_msg, "filehelper")  # 将提示消息发送给文件助手
-            # 发送保存的语音
-            itchat.send_file(temp + "/" + info_name, "filehelper")
-            del local_dict[msgId]  # 删除字典中对应的消息
-            print("保存语音")
-        elif msg_type == "Text":
+    if "撤回了一条消息" in msg["Text"]:  # 监听撤回了一条消息到好友撤回了一条消息
+        content = msg["Content"]  # 获取系统消息中的Content结点值
+        doc = minidom.parseString(content)  # Content值为xml，解析xml
+        result = doc.getElementsByTagName("msgid")  # 取出msgid标签的值
+        msgId = result[0].childNodes[0].nodeValue  # 该msgId就是撤回的消息标识，通过它可以在字典中找到撤回的消息信息
+        msg_type = local_dict[msgId]["info_type"]  # 从字典中取出对应消息标识的消息类型
+
+        if msg_type == "Text":  # 撤回的消息
             text_info = local_dict[msgId]["info"]  # 取出消息标识对应的消息内容
             fromUser = local_dict[msgId]["fromUser"]  # 取出发送者
             dt = local_dict[msgId]["dt"]  # 取出发送时间
-            # 拼接提示消息
-            send_msg = (
-                "【发送人:】" + fromUser + "\n" + "发送时间:" + dt + "\n" + "撤回内容:" + text_info
-            )
-            # 将提示消息发送给文件助手
-            itchat.send(send_msg, "filehelper")
-            del local_dict[msgId]  # 删除字典中对应的消息
+            send_msg = f"[发送人]: {fromUser}\n发送时间: {dt}\n撤回内容: {text_info}"
+            itchat.send(send_msg, "filehelper")  # 将提示消息发送给文件助手
+            del local_dict[msgId]
             print("保存文本")
-        elif msg_type == "Picture":
-            picture_info = local_dict[msgId]["info"]  # 取出消息标识对应的消息内容
-            fromUser = local_dict[msgId]["fromUser"]  # 取出发送者
-            dt = local_dict[msgId]["dt"]  # 取出发送时间
-            info_name = local_dict[msgId]["name"]  # 取出文件名
+
+        elif msg_type == "Recording":  # 撤回的语音
+            recording_info = local_dict[msgId]["info"]
+            info_name = local_dict[msgId]["name"]  # 取出消息文件名
+            fromUser = local_dict[msgId]["fromUser"]
+            dt = local_dict[msgId]["dt"]
+            recording_info(temp + "/" + info_name)  # 保存语音
+            send_msg = f"[发送人]: {fromUser}\n发送时间: {dt}\n撤回了一条语音"
+            itchat.send(send_msg, "filehelper")
+            itchat.send_file(f"{temp}/{info_name}", "filehelper")  # 发送保存的语音
+            del local_dict[msgId]
+            print("保存语音")
+
+        elif msg_type == "Picture":  # 撤回的图片
+            picture_info = local_dict[msgId]["info"]
+            fromUser = local_dict[msgId]["fromUser"]
+            dt = local_dict[msgId]["dt"]
+            info_name = local_dict[msgId]["name"]
             picture_info(temp + "/" + info_name)  # 保存图片
-            # 拼接提示消息
-            send_msg = "【发送人:】" + fromUser + "\n" + "发送时间:" + dt + "\n" + "撤回了一张图片"
+            send_msg = f"[发送人]: {fromUser}\n发送时间: {dt}\n撤回了一张图片"
             itchat.send(send_msg, "filehelper")  # 将图片发送给文件助手
-            # 发送保存的语音
-            itchat.send_file(temp + "/" + info_name, "filehelper")
-            del local_dict[msgId]  # 删除字典中对应的消息
+            itchat.send_file(f"{temp}/{info_name}", "filehelper")
+            del local_dict[msgId]
             print("保存图片")
 
 
