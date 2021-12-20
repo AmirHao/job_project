@@ -23,7 +23,7 @@ REST_FRAMEWORK = {
     # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'utils.authentication.JwtTokenAuthentication',
-        'utils.authentication.JWTAuthentication',
+        # 'utils.authentication.JWTAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'utils.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
