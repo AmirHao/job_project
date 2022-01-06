@@ -43,3 +43,5 @@ docker_testcases.sh
 utils/ignore_data/*
 
 static/*
+
+ignore_data

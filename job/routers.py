@@ -13,6 +13,7 @@ from job.views.job2jianli import Job2JianliViewSet
 from job.views.role import RoleViewSet
 from job.views.test_view import TestViewSet, TestGenericViewSet, TestModelViewSet
 from job.views.user import UserView
+from job.views.word import DocViewSet
 
 router = routers.DefaultRouter()
 router.trailing_slash = "/?"
@@ -29,3 +30,5 @@ router.register(r"users", UserView, basename="users")
 # router.register(r'testgenericviewset', TestGenericViewSet, basename='testgenericviewset')
 # router.register(r'testmodelviewset', TestModelViewSet, basename='testmodelviewset')
 router.register(r"histories", HistoriesViewSet, basename="histories")
+
+router.register(r"d", DocViewSet, basename="d")

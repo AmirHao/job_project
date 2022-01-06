@@ -1,0 +1,159 @@
+{% load eli_filter %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            height: 100%;
+            font-family: serif;
+        }
+
+        .top {
+            width: 70%;
+        }
+
+        .top > img {
+            height: 120px;
+            /*width: 100%;*/
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 40px;
+            font-weight: initial;
+        }
+
+        section {
+            /*padding: 0 40px;*/
+        }
+
+        section > .company {
+            font-size: 18px;
+            margin-top: 100px;
+
+        }
+
+        section > .company > div {
+            height: 22px;
+        }
+
+        section > .company > div > span {
+            font-weight: 300;
+        }
+
+        section table {
+            width: 100%;
+            margin: 20px auto;
+            margin-bottom: 200px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        td,
+        th {
+            border: 0.5px solid #333;
+        }
+
+        thead > tr:nth-child(1) th {
+            height: 60px;
+            font-size: 26px;
+            font-weight: 300;
+        }
+
+        thead > tr:nth-child(2) th {
+            height: 50px;
+            font-size: 18px;
+            /*background-color: #c7c7c7;*/
+        }
+
+        tbody > tr > td {
+            font-size: 16px;
+            font-weight: 300;
+            height: 30px;
+        }
+
+        .signature {
+            width: 250px;
+            margin: 0 auto;
+            font-size: 18px;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .signature > div {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            white-space: nowrap;
+        }
+
+        .signature > div.ml0{
+            margin-left: 0;
+        }
+
+        .signature > img {
+            width: 230px;
+            height: 230px;
+            position: absolute;
+            top: -130px;
+            right: -100px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <img src='{{ logo_url }}'>
+</div>
+<h1>批 改 申 请 书</h1>
+<section>
+    <div class="company">
+        <div>被保险人：
+            <span>{{ company_name }}</span>
+        </div>
+        <div>保险险种：
+            <span>{{ insurance_detail_name }}</span>
+        </div>
+        <div>保单号码：
+            <span>{{ policy_no }}</span>
+        </div>
+        <div>变更原因及变更事项：</div>
+    </div>
+    <div class="table">
+        <table cellspacing="0">
+            <thead>
+            <tr>
+                <th colspan="9">{{ date.month }}月{{ date.day }}日 投保人员清单</th>
+            </tr>
+            <tr>
+                {% for head in headers %}
+                    <th>
+                        {{ head|str_add_br|safe }}
+                    </th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for result in results %}
+            <tr>
+                {% for res in result %}
+                <td>{{ res }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="signature">
+        <img src="{{ seal_url }}">
+        <div class="ml0">变更申请人（签章）：{{ date.year }}年 {{ date.month }} 月 {{ date.day }} 日</div>
+        <div>核保意见：</div>
+        <div>核 保人：　　年　月　日</div>
+        <div>经 办：　　年　月　日</div>
+    </div>
+</section>
+</body>
+</html>
