@@ -55,11 +55,13 @@ class DocViewSet(ViewSet):
         import docx
 
         def del_table(table):
+            # 适用于删除段落、表格、图片等
             t = table._element
             t.getparent().remove(t)
             t._p = t._element = None
 
         def move_table_after(table, doc, s):
+            # 在指定文本后插入表格
             prev = None
             for pg in doc.paragraphs:
                 if s in pg.text:
@@ -69,13 +71,23 @@ class DocViewSet(ViewSet):
                 p.addnext(t)
 
         doc = docx.Document(docx_file)
-        del_table(doc.tables[0])
-        del_table(doc.tables[0])
-        new_t = doc.add_table(rows=1, cols=9, style="Table Grid")
-        for i, v in zip(new_t.rows[0].cells, context["headers"]):
-            i.text = v
-        # for table in doc.tables:
-        #     table.style = None
-        move_table_after(new_t, doc, "⽇投保⼈员清单")
+
+        import copy
+        old_r = None
+        for table in doc.tables:
+            if len(table.rows[0].cells) != 9:
+                del_table(table)
+            else:
+                if old_r is None:
+                    old_r = copy.deepcopy(table.rows[0])
+                table.rows[0]._tr.addprevious(copy.deepcopy(old_r)._element)
+                for c, v in zip(table.rows[0].cells, context["headers"]):
+                    c.text = v
+                table.style = "Table Grid"
+                table.autofit = True
+                for r in table.rows:
+                    from docx.enum.table import WD_ROW_HEIGHT_RULE
+                    r.height_rule = WD_ROW_HEIGHT_RULE.AUTO
+
         doc.save(f"{settings.BASE_DIR}/ignore_data/aaa4.docx")
         return Response("ok")
