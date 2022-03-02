@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'simple_history',
     'job',
     'book',
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
