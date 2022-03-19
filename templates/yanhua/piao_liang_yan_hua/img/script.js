@@ -1,6 +1,6 @@
 var gc = new GameCanvas();
 
-var points = textToPoints("可爱的小徒弟，每天都要快乐哦！", 12, "幼圆");
+var points = textToPoints("可爱的小徒弟, 每天都要快乐哦！", 12, "幼圆");
 
 
 var titleParticles = [];
