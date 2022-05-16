@@ -32,4 +32,4 @@ if __name__ == '__main__':
     h_fibonacci(10)
     print()
     for k in range(1, 11):
-        print(h_fibonacci2(1,1,k), end=" ")
+        print(h_fibonacci2(1, 1, k), end=" ")
